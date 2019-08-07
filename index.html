@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+    <link href='http://fonts.googleapis.com/css?family=Orbitron:400,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+
+
+    <div class="modal" tabindex="1" role="dialog" id="modal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title timeText">Clock Converter</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              <em>What's a decmial clock?</em>  A clock that has only 10 hours in a day, each comprised of a hundred 100-second minutes.
+            </p>
+
+            <p>
+              <em>But that's 100,000 seconds - there are only 86,400 seconds in a day!</em>  Seconds are shorter in "decimal time" - about 15% shorter
+            </p>
+
+            <p>
+              <em>OK...so why's there an app for it?</em>  Because I felt like making an app to demonstrate the concept of a decimal clock.
+            </p>
+
+            <p>
+              <em>Couldn't you just make an app that displayed decimal time?</em>  I could have.  But there'd be no way for someone to see how quickly seconds tick by in a different time unit when compared to our own.
+            </p>
+
+            <p>
+              <em>OK...so why didn't you just show decimal time against our own?</em>  Again, I could have.  But where's the fun in that?  I mean, haven't you ever wondered what a day would look like if there were 3 divisions that lasted 7 hours each and each of the 94 minutes was 57 seconds long?  OK, That's a bit much.  In short, though, I just thought the math would be cool, and the challenge of coding it out would be fun.
+            </p>
+
+            <p>
+              <em>So why'd you include a stopwatches and a timers?</em>  Just felt like it, I guess.  Again, I figured the math would be kind of interesting, and that I might learn a few new CSS tricks in displaying them as a rotating cube.
+            </p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" name="button" id="createButton" class="btn">
+      New Time Unit
+    </button>
+
+    <div id="container">
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
