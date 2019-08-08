@@ -1,5 +1,13 @@
 window.onload = function(){
 
+  $('#modal').modal('show');
+
+  const createButton = document.getElementById('createButton');
+
+  let iterator = 0;
+  // Clocks is an object that contains an object for each div to house the methods associated with displaying clock faces
+  let clocks = [];
+
   const elementCreator = function(object){
     let element = document.createElement(object.tag);
     if (object.classes){
@@ -15,24 +23,6 @@ window.onload = function(){
     }
     return element;
   };
-
-
-  // let object = {
-  //   tag: '',
-  //   classes: [''],
-  //   innerHTML: "",
-  //   attributes: {
-  //     id: 1,
-  //     value: 0,
-  //   }
-  // };
-
-
-  $('#modal').modal('show');
-  const createButton = document.getElementById('createButton');
-  let iterator = 0;
-  // Clocks is an object that contains an object for each div to house the methods associated with displaying clock faces
-  let clocks = [];
 
   let defineClock = function(id){
     let formDivisions = document.getElementById('divisions ' + id).value;
@@ -182,7 +172,6 @@ window.onload = function(){
       },
       stopCountdown: function(){
         clearInterval(this.countdownVar);
-        console.log("countdown stopped");
       }
     };
     return newClock;
@@ -354,6 +343,10 @@ window.onload = function(){
       }
     });
     countdownDiv.append(countdownText);
+    let selectorDiv = elementCreator({
+      tag: 'div',
+      classes: ['countdownSelectors']
+    })
     let hourSelect = elementCreator({
       tag: 'select',
       classes: ['select', 'form-control-lg'],
@@ -371,7 +364,7 @@ window.onload = function(){
       });
       hourSelect.append(option);
     }
-    countdownDiv.append(hourSelect);
+    selectorDiv.append(hourSelect);
     let minuteSelect = elementCreator({
       tag: 'select',
       classes: ['select', 'form-control-lg'],
@@ -389,7 +382,7 @@ window.onload = function(){
       })
       minuteSelect.append(option);
     }
-    countdownDiv.append(minuteSelect);
+    selectorDiv.append(minuteSelect)
     let secondSelect = elementCreator({
       tag: 'select',
       classes: ['select', 'form-control-lg'],
@@ -407,7 +400,7 @@ window.onload = function(){
       })
       secondSelect.append(option);
     }
-    countdownDiv.append(secondSelect);
+    selectorDiv.append(secondSelect);
     let startCountdownButton = elementCreator({
       tag: 'button',
       innerHTML: "Start",
@@ -416,7 +409,8 @@ window.onload = function(){
         id: 'countdownStart ' + id,
         value: id
       }
-    })
+    });
+    countdownDiv.append(selectorDiv);
     startCountdownButton.addEventListener('click', function(){
       clocks[id].startCountdown();
     })

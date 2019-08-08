@@ -192,6 +192,10 @@ h5 {
   margin: 0;
 }
 
+.selectorDiv {
+  display: block;
+}
+
 .modal-title.timeText {
   font-size: 3rem;
 }
