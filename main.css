@@ -177,6 +177,7 @@ h5 {
 
 /* used to format the time display text */
 .timeText {
+  display: block;
   font-family: 'Orbitron', 'Courier New', monospace;
   font-size: 6rem;
   margin: 1rem 0;
