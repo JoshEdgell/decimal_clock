@@ -24,11 +24,19 @@ window.onload = function(){
     return element;
   };
 
-  let defineClock = function(id){
-    let formDivisions = document.getElementById('divisions ' + id).value;
-    let formHours = document.getElementById('hours ' + id).value;
-    let formMinutes = document.getElementById('minutes ' + id).value;
-    let formSeconds = document.getElementById('seconds ' + id).value
+  let defineClock = function(id, divisions, hours, minutes, seconds){
+    //OLD
+    // let formDivisions = document.getElementById('divisions ' + id).value;
+    // let formHours = document.getElementById('hours ' + id).value;
+    // let formMinutes = document.getElementById('minutes ' + id).value;
+    // let formSeconds = document.getElementById('seconds ' + id).value;
+    //NEW
+    let formDivisions = divisions;
+    let formHours = hours;
+    let formMinutes = minutes;
+    let formSeconds = seconds;
+
+
     let newClock = {
       id: id,
       divisions: parseInt(formDivisions),
@@ -461,6 +469,12 @@ window.onload = function(){
             id: 'entryForm ' + count
           }
         });
+
+
+
+
+
+
         // Time units form
         let form = elementCreator({
           tag: 'form',
@@ -480,22 +494,12 @@ window.onload = function(){
           }
         })
         let divisions = elementCreator({
-          tag: 'select',
-          classes: ['form-control' , 'form-control-lg'],
+          tag: 'input',
+          classes: ['form-control', 'form-control-lg', 'input-field'],
           attributes: {
             id: 'divisions ' + count
           }
-        })
-        for (let i = 1; i <= 4; i++) {
-          let option = elementCreator({
-            tag: 'option',
-            innerHTML: i,
-            attributes: {
-              value: i
-            }
-          })
-          divisions.append(option);
-        }
+        });
         divisionsGroup.append(divisionsLabel);
         divisionsGroup.append(divisions);
         form.append(divisionsGroup);
@@ -511,22 +515,12 @@ window.onload = function(){
           }
         });
         let hours = elementCreator({
-          tag: 'select',
-          classes: ['form-control', 'form-control-lg'],
+          tag: 'input',
+          classes: ['form-control', 'form-control-lg', 'input-field'],
           attributes: {
             id: 'hours ' + count
           }
-        })
-        for (let i = 1; i <= 72; i++) {
-          let option = elementCreator({
-            tag: 'option',
-            innerHTML: i,
-            attributes: {
-              value: i
-            }
-          })
-          hours.append(option);
-        }
+        });
         hoursGroup.append(hoursLabel);
         hoursGroup.append(hours);
         form.append(hoursGroup);
@@ -542,22 +536,12 @@ window.onload = function(){
           }
         });
         let minutes = elementCreator({
-          tag: 'select',
-          classes: ['form-control', 'form-control-lg'],
+          tag: 'input',
+          classes: ['form-control', 'form-control-lg', 'input-field'],
           attributes: {
             id: 'minutes ' + count
           }
         });
-        for (let i = 1; i <= 300; i++) {
-          let option = elementCreator({
-            tag: 'option',
-            innerHTML: i,
-            attributes: {
-              value: i
-            }
-          })
-          minutes.append(option);
-        }
         minutesGroup.append(minutesLabel);
         minutesGroup.append(minutes);
         form.append(minutesGroup);
@@ -571,24 +555,14 @@ window.onload = function(){
           attributes: {
             for: 'seconds ' + count
           }
-        })
+        });
         let seconds = elementCreator({
-          tag: 'select',
-          classes: ['form-control', 'form-control-lg'],
+          tag: 'input',
+          classes: ['form-control', 'form-control-lg', 'input-field'],
           attributes: {
             id: 'seconds ' + count
           }
-        })
-        for (let i = 1; i <= 1000; i++) {
-          let option = elementCreator({
-            tag: 'option',
-            innerHTML: i,
-            attributes: {
-              value: i
-            }
-          })
-          seconds.append(option);
-        }
+        });
         secondsGroup.append(secondsLabel);
         secondsGroup.append(seconds);
         form.append(secondsGroup);
@@ -602,27 +576,78 @@ window.onload = function(){
           }
         })
         button.addEventListener('click', function(e){
+          event.preventDefault();
+          console.log("clicked")
           let id = e.target.value;
           // define new clock object
-          clocks[id] = defineClock(id);
-          // Find the entryForm div and hide it
-          let entryForm = document.getElementById('entryForm ' + id);
-          entryForm.parentNode.removeChild(entryForm);
-          // The clockBox is the parent of all clock display divs. It will contain divs for displaying time, a stopwatch, and a timer
-          let clockBox = document.getElementById(id);
-          // create stopwatch div and append it to the clockBox
-          let stopwatchDiv = createStopwatch(id);
-          clockBox.append(stopwatchDiv);
-          // create clockTime div and append it to the clockBox
-          let clockTimeDiv = createClockTime(id);
-          clockBox.append(clockTimeDiv);
-          // create countdown div and append it to the clockBox
-          let countdownDiv = createCountdown(id);
-          clockBox.append(countdownDiv);
-          // Start running the time on the clock
-          clocks[id].startTime();
-          clocks[id].calculateTime();
-          clocks[id].renderClock();
+          let divisions = document.getElementById('divisions ' + id).value;
+          let hours = document.getElementById('hours ' + id).value;
+          let minutes = document.getElementById('minutes ' + id).value;
+          let seconds = document.getElementById('seconds ' + id).value;
+
+          let failMessage = `Please correct the following errors:\n\n`
+          let fails = false;
+          if (!(divisions > 0 && divisions < 5)) {
+            fails = true;
+            failMessage += `* - Divisions must be between 1 and 4\n`
+          }
+          if (!(hours > 0 && hours < 73)) {
+            fails = true;
+            failMessage += `* - Hours must be between 1 and 72\n`
+          }
+          if (!(minutes > 0 && minutes < 301)) {
+            fails = true;
+            failMessage += `* - Minutes must be between 1 and 300\n`
+          }
+          if (!(seconds > 0 && seconds < 1001)) {
+            fails = true;
+            failMessage += `* - Seconds must be between 1 and 1000`
+          }
+          // If the user entries are all valid, make the new clock
+          if (!fails) {
+            clocks[id] = defineClock(id, divisions, hours, minutes, seconds);
+            // Find the entryForm div and hide it
+            let entryForm = document.getElementById('entryForm ' + id);
+            entryForm.parentNode.removeChild(entryForm);
+            // The clockBox is the parent of all clock display divs. It will contain divs for displaying time, a stopwatch, and a timer
+            let clockBox = document.getElementById(id);
+            // create stopwatch div and append it to the clockBox
+            let stopwatchDiv = createStopwatch(id);
+            clockBox.append(stopwatchDiv);
+            // create clockTime div and append it to the clockBox
+            let clockTimeDiv = createClockTime(id);
+            clockBox.append(clockTimeDiv);
+            // create countdown div and append it to the clockBox
+            let countdownDiv = createCountdown(id);
+            clockBox.append(countdownDiv);
+            // Start running the time on the clock
+            clocks[id].startTime();
+            clocks[id].calculateTime();
+            clocks[id].renderClock();
+          } else {
+            alert(failMessage)
+          }
+
+          // OLD
+          // clocks[id] = defineClock(id, divisions, hours, minutes, seconds);
+          // // Find the entryForm div and hide it
+          // let entryForm = document.getElementById('entryForm ' + id);
+          // entryForm.parentNode.removeChild(entryForm);
+          // // The clockBox is the parent of all clock display divs. It will contain divs for displaying time, a stopwatch, and a timer
+          // let clockBox = document.getElementById(id);
+          // // create stopwatch div and append it to the clockBox
+          // let stopwatchDiv = createStopwatch(id);
+          // clockBox.append(stopwatchDiv);
+          // // create clockTime div and append it to the clockBox
+          // let clockTimeDiv = createClockTime(id);
+          // clockBox.append(clockTimeDiv);
+          // // create countdown div and append it to the clockBox
+          // let countdownDiv = createCountdown(id);
+          // clockBox.append(countdownDiv);
+          // // Start running the time on the clock
+          // clocks[id].startTime();
+          // clocks[id].calculateTime();
+          // clocks[id].renderClock();
         });
         form.append(button);
         entryForm.append(form);

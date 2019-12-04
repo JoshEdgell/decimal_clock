@@ -233,8 +233,16 @@ h5 {
   width: auto;
 }
 
+.input-field {
+  width: 3.5rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  text-align: center;
+}
+
 @media (min-width: 576px) {
 .modal-dialog {
     max-width: 70%;
     margin: 1.75rem auto;
+  }
 }
